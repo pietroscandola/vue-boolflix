@@ -1,28 +1,47 @@
 <template>
   <div class="col-3 my-3">
-    <img class="cover" :src="flagSrc" :alt="item.title" />
-    <div>{{ item.title || item.name }}</div>
-    <div>{{ item.original_title || item.original_name }}</div>
-    <div v-if="hasFlag">
-      <img
-        class="flag"
-        :src="require(`../assets/img/${item.original_language}.png`)"
-        :alt="item.original_language"
-      />
+    <div class="card">
+      <img class="cover" :src="flagSrc" :alt="item.title" />
+      <div class="show">
+        <div class="m-2">
+          <strong>Titolo: </strong>{{ item.title || item.name }}
+        </div>
+        <div class="m-2">
+          <strong>Titolo originale: </strong
+          >{{ item.original_title || item.original_name }}
+        </div>
+        <div v-if="hasFlag" class="m-2">
+          <strong>Lingua: </strong>
+          <img
+            class="flag"
+            :src="require(`../assets/img/${item.original_language}.png`)"
+            :alt="item.original_language"
+          />
+        </div>
+        <div v-else class="m-2">{{ item.original_language }}</div>
+        <div class="m-2">
+          <span>
+            <strong>Voto: </strong>
+            <i
+              v-for="(getStar, index) in getStars"
+              :key="index"
+              class="fa-solid fa-star"
+            ></i>
+          </span>
+          <span>
+            <i
+              v-for="(star, index) in stars"
+              :key="index"
+              class="fa-regular fa-star"
+            ></i>
+          </span>
+        </div>
+        <div v-if="item.overview" class="m-2">
+          <p class="text-center"><strong>Trama</strong></p>
+          <p class="m-2">{{ item.overview }}</p>
+        </div>
+      </div>
     </div>
-    <div v-else>{{ item.original_language }}</div>
-    <div>
-      <span>
-        <i
-        v-for="(getStar, index) in getStars"
-        :key="index"
-        class="fa-solid fa-star"
-      ></i>
-      </span>
-      <span>
-        <i v-for="(star,index) in stars" :key="index" class="fa-regular fa-star"></i>
-      </span>      
-    </div>    
   </div>
 </template>
 
@@ -51,7 +70,7 @@ export default {
       }
     },
 
-    getStars() {     
+    getStars() {
       return Math.ceil(this.item.vote_average / 2);
     },
 
@@ -68,6 +87,31 @@ export default {
 }
 
 .cover {
-  width: 80%;
+  width: 100%;
+  height: auto;
+  position: relative;
+}
+
+.fa-star {
+  color: yellow;
+}
+
+.show {
+  display: none;  
+  height: 100%;
+  width: 100%;
+}
+
+.card:hover > .show {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: gray;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  cursor: pointer;
+  z-index: 1;
 }
 </style>
