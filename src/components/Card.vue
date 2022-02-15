@@ -13,7 +13,7 @@
     <div v-else>{{ item.original_language }}</div>
     <div>
       {{ item.vote_average }}
-      <i class="fa-solid fa-star"></i>
+      <i v-for="(getStar,index) in getStars" :key="index" class="fa-solid fa-star"></i>
     </div>
   </div>
 </template>
@@ -42,6 +42,10 @@ export default {
         return require("../assets/img/no-poster-available.jpg");
       }
     },
+
+    getStars(){
+        return Math.ceil( (this.item.vote_average / 2))
+    },
   },
 };
 </script>
@@ -52,6 +56,6 @@ export default {
 }
 
 .cover {
-  width: 90%;
+  width: 100%;
 }
 </style>
