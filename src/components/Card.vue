@@ -12,9 +12,17 @@
     </div>
     <div v-else>{{ item.original_language }}</div>
     <div>
-      {{ item.vote_average }}
-      <i v-for="(getStar,index) in getStars" :key="index" class="fa-solid fa-star"></i>
-    </div>
+      <span>
+        <i
+        v-for="(getStar, index) in getStars"
+        :key="index"
+        class="fa-solid fa-star"
+      ></i>
+      </span>
+      <span>
+        <i v-for="(star,index) in stars" :key="index" class="fa-regular fa-star"></i>
+      </span>      
+    </div>    
   </div>
 </template>
 
@@ -26,7 +34,7 @@ export default {
     return {
       flags: ["it", "en"],
       selectedFilms: "",
-      selectedTVSeries: "",       
+      selectedTVSeries: "",
     };
   },
 
@@ -43,8 +51,12 @@ export default {
       }
     },
 
-    getStars(){
-        return Math.ceil( (this.item.vote_average / 2))
+    getStars() {     
+      return Math.ceil(this.item.vote_average / 2);
+    },
+
+    stars() {
+      return 5 - this.getStars;
     },
   },
 };

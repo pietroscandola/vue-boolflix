@@ -1,7 +1,17 @@
 <template>
   <div class="searchbar">
-    <input type="text" v-model="query" @keyup.enter="getMovies" placeholder="Scrivi qui" />
-    <button class="mx-3" @click="getMovies">Cerca</button>
+    <div class="row">
+      
+      <div class="col-6">
+        <h1 class="text-red">BOOLFLIX</h1>
+      </div>
+
+      <div class="col-6">
+        <input type="text" v-model="query" @keyup.enter="getMovies" placeholder="Scrivi qui" />
+        <button class="mx-3" @click="getMovies">Cerca</button>
+      </div>
+    </div>
+    
   </div>
 </template>
 
