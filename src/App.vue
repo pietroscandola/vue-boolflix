@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <Header @genres-films="setMovies"/>
     <Main :films="films" :tvSeries="tvSeries"/>
   </div>
