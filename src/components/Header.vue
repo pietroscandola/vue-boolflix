@@ -42,7 +42,6 @@ export default {
         this.tvSeries = [];
         return;
       }
-
       const config = {
         params: {
           language: "it-IT",
@@ -59,7 +58,6 @@ export default {
           axios.spread((res1, res2) => {
             this.films = res1.data.results;
             this.tvSeries = res2.data.results;
-
             this.$emit("genres-films", this.films, this.tvSeries);
           })
         );

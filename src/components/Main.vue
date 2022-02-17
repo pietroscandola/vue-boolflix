@@ -2,7 +2,7 @@
   <div class="container">
     <div
       v-if="!films.length"
-      class="main d-flex align-items-center justify-content-center "
+      class="main d-flex align-items-center justify-content-center"
     >
       <h2 class="text-center text-white">Cerca un Film o una una Serie TV</h2>
     </div>

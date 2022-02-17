@@ -23,22 +23,22 @@
           <span>
             <strong>Voto: </strong>
             <i
-              v-for="(getStar, index) in getStars"
-              :key="index"
-              class="fa-solid fa-star"
-            ></i>
-          </span>
-          <span>
-            <i
-              v-for="(star, index) in stars"
-              :key="index"
-              class="fa-regular fa-star"
+              v-for="n in 5"
+              :key="n"
+              class="fa-star"
+              :class="n <= getStars ? 'fa-solid' : 'fa-regular'"
             ></i>
           </span>
         </div>
         <div v-if="item.overview" class="m-2">
           <p class="text-center"><strong>Trama</strong></p>
           <p class="m-2">{{ item.overview }}</p>
+        </div>
+        <div class="m-2">
+          <strong>Cast: </strong>
+          <ul>
+            <li v-for="cast of item.cast" :key="cast.id">{{ cast.name }}</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -73,10 +73,6 @@ export default {
     getStars() {
       return Math.ceil(this.item.vote_average / 2);
     },
-
-    stars() {
-      return 5 - this.getStars;
-    },
   },
 };
 </script>
@@ -86,10 +82,16 @@ export default {
   width: 50px;
 }
 
+.card {
+  border-radius: 30px;
+}
+
 .cover {
   width: 100%;
-  height: auto;
+  height: 456px;
   position: relative;
+  border-radius: 30px;
+  border: 5px solid red;
 }
 
 .fa-star {
@@ -97,9 +99,10 @@ export default {
 }
 
 .show {
-  display: none;  
+  display: none;
   height: 100%;
   width: 100%;
+  border-radius: 30px;
 }
 
 .card:hover > .show {
@@ -112,18 +115,18 @@ export default {
   width: 100%;
   overflow-y: auto;
   cursor: pointer;
-  animation: scale-in-ver-center 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  animation: scale-in-ver-center 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 @keyframes scale-in-ver-center {
   0% {
     -webkit-transform: scaleY(0);
-            transform: scaleY(0);
+    transform: scaleY(0);
     opacity: 1;
   }
   100% {
     -webkit-transform: scaleY(1);
-            transform: scaleY(1);
+    transform: scaleY(1);
     opacity: 1;
   }
 }
