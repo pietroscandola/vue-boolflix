@@ -37,7 +37,7 @@
         <div class="m-2">
           <strong>Cast: </strong>
           <ul>
-            <li v-for="cast of item.cast" :key="cast.id">{{ cast.name }}</li>
+            <li v-for="actor in actors" :key="actor">{{ actor }}</li>
           </ul>
         </div>
       </div>
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "Card",
   props: ["item"],
@@ -54,6 +55,7 @@ export default {
       flags: ["it", "en"],
       selectedFilms: "",
       selectedTVSeries: "",
+      actors: [],
     };
   },
 
@@ -64,7 +66,7 @@ export default {
 
     flagSrc() {
       if (this.item.poster_path) {
-        return `https://image.tmdb.org/t/p/w342/${this.item.poster_path}`;
+        return `https://image.tmdb.org/t/p/w342${this.item.poster_path}`;
       } else {
         return require("../assets/img/no-poster-available.jpg");
       }
@@ -73,6 +75,20 @@ export default {
     getStars() {
       return Math.ceil(this.item.vote_average / 2);
     },
+  },
+
+  mounted() {
+    axios
+      .get(
+        `https://api.themoviedb.org/3/movie/${this.item.id}/credits?api_key=651472fb58ade4f3f9ebcc8537c476f7`
+      )
+      .then((res) => {
+        const actors = res.data.cast;
+        actors.forEach((actor) => {
+          this.actors.push(actor.name);
+        });
+        this.actors = this.actors.slice(0, 5);
+      });
   },
 };
 </script>
